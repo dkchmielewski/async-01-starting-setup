@@ -4,10 +4,10 @@ const output = document.querySelector('p');
 const getPosition = (opts) => {
   const promise = new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
-      success => {
+      (success) => {
         resolve(success);
       },
-      error => {
+      (error) => {
         reject(error);
       },
       opts
@@ -27,20 +27,26 @@ const setTimer = (duration) => {
 
 async function trackUserHandler() {
   // let positionData;
-  const posData = await getPosition();
-  const timerData = await setTimer(2000);
+  let posData;
+  let timerData;
+  try {
+    posData = await getPosition();
+    timerData = await setTimer(2000);
+  } catch (error) {
+    console.log(error);
+  }
   console.log(timerData, posData);
-    // .then((posData) => {
-    //   positionData = posData;
-    //   return setTimer(2000);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   return 'on we go...';
-    // })
-    // .then(data => {
-    //   console.log(data, positionData);
-    // });
+  // .then((posData) => {
+  //   positionData = posData;
+  //   return setTimer(2000);
+  // })
+  // .catch(err => {
+  //   console.log(err);
+  //   return 'on we go...';
+  // })
+  // .then(data => {
+  //   console.log(data, positionData);
+  // });
   // setTimer(1000).then(() => {
   //   console.log('Timer done!');
   // });
